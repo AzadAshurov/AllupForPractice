@@ -1,0 +1,120 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Allup.Areas.Admin.ViewModels;
+using Allup.Areas.Admin.ViewModels.Tags;
+using Allup.DAL;
+using Allup.Models;
+
+namespace Allup.Areas.Admin.Controllers
+{
+    [Area("Admin")]
+    [Authorize(Roles = "Admin,Moderator")]
+    public class TagController : Controller
+    {
+        private readonly AppDbContext _context;
+
+        public TagController(AppDbContext context)
+        {
+            _context = context;
+        }
+        public async Task<IActionResult> Index()
+        {
+            List<GetTagAdminVM> tagsList = await _context.Tags.Include(a => a.ProductTags).Select(x => new GetTagAdminVM { Id = x.Id, Name = x.Name, ProductTags = x.ProductTags }).ToListAsync();
+            return View(tagsList);
+        }
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(int? id, GetTagAdminVM tagVm)
+        {
+            if (!ModelState.IsValid)
+            {
+
+                return View();
+            }
+            bool isExist = await _context.Tags.AnyAsync(c => c.Name.Trim().ToLower() == tagVm.Name.Trim().ToLower());
+
+            if (isExist)
+            {
+                ModelState.AddModelError("Name", "This Tag already exists");
+                return View();
+            }
+            Tag tag = new Tag
+            {
+                CreatedAt = DateTime.Now,
+                Name = tagVm.Name,
+                IsDeleted = false
+            };
+            await _context.Tags.AddAsync(tag);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null || id < 1) return BadRequest();
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            Tag tag = await _context.Tags.FirstOrDefaultAsync(s => s.Id == id);
+            if (tag is null) return NotFound();
+            UpdateTagVM tagVM = new UpdateTagVM
+            {
+                Name = tag.Name
+            };
+            return View(tagVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(int? id, UpdateTagVM tagVM)
+        {
+            if (id == null || id < 1) return BadRequest();
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            Tag tag = await _context.Tags.FirstOrDefaultAsync(s => s.Id == id);
+            if (tag is null) return NotFound();
+            if (_context.Tags.Any(x => x.Name == tagVM.Name && x.Id != tagVM.Id))
+            {
+                ModelState.AddModelError(nameof(UpdateTagVM.Name), "Tag must be unique");
+                return View(tagVM);
+            }
+            tag.Name = tagVM.Name;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || id < 1) return BadRequest();
+
+            Tag tag = await _context.Tags.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (tag is null) return NotFound();
+            _context.Tags.Remove(tag);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null || id < 1) return BadRequest();
+            Tag tag = await _context.Tags.Include(t => t.ProductTags).FirstOrDefaultAsync(s => s.Id == id);
+            if (tag is null) return NotFound();
+            DetailTag detailTag = new DetailTag
+            {
+                Name = tag.Name,
+                IsDeleted = tag.IsDeleted,
+                CreatedAt = tag.CreatedAt,
+                ProductTags = tag.ProductTags
+            };
+
+            return View(detailTag);
+        }
+    }
+}

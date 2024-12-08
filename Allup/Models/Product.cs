@@ -16,16 +16,12 @@
 
 
         //relational
-        public int CategoryId { get; set; }
-        public ProductCategory Category { get; set; }
-
-        public int BrandId { get; set; }
-        public ProductBrand Brand { get; set; }
-
-
+        public List<ProductCategory> ProductCategories { get; set; }
         public List<ProductImage> ProductImages { get; set; }
 
-
+        public List<ProductTag> ProductTags { get; set; }
+        public List<ProductColor> ProductColors { get; set; }
+        public List<ProductSize> ProductSizes { get; set; }
 
 
     }
