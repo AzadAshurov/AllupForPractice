@@ -69,17 +69,12 @@
 
 
                     <div class="form-group">
-                        <label asp-for="CategoryId">Category</label>
-                        <select asp-for="CategoryId" class="form-control" asp-items="new SelectList(Model.Categories,nameof(Category.Id),nameof(Category.Name))">
-                           @*  @foreach (Category category in Model.Categories)
-                            {
-                                <option value="@category.Id">@category.Name</option>
-                            } *@
-                           @*  <option selected disabled value="">Choose one of Categoryes</option> *@
-
+                        <label asp-for="CategoryIds">Categories</label>
+                        <select asp-for="CategoryIds" class="form-control" asp-items="new SelectList(Model.Categories, nameof(Category.Id), nameof(Category.Name))" multiple>
                         </select>
-                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        <span asp-validation-for="CategoryIds" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
                         <label asp-for="TagIds">Tags</label>
                         <select asp-for="TagIds" class="form-control" asp-items="new SelectList(Model.Tags,nameof(Tag.Id),nameof(Tag.Name))" multiple>

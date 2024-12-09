@@ -26,14 +26,14 @@ namespace Allup.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             List<GetProductAdminVM> productsVMs = await _context.Products
-                .Include(p => p.Category)
+                .Include(p => p.ProductCategories).ThenInclude(x => x.Category)
                 .Include(p => p.ProductImages.Where(pi => pi.IsPrimary == true))
                 .Select(p => new GetProductAdminVM
                 {
                     Id = p.Id,
                     Name = p.Name,
                     Price = p.Price,
-                    CategoryName = p.Category.Name,
+                    CategoryName = p.ProductCategories.Select(pc => pc.Category.Name).FirstOrDefault(),
                     Image = p.ProductImages[0].Image
                 })
                 .ToListAsync();
@@ -64,12 +64,16 @@ namespace Allup.Areas.Admin.Controllers
                 return View(productVM);
             }
 
-            bool result = productVM.Categories.Any(c => c.Id == productVM.CategoryId);
-            if (!result)
+            if (productVM.CategoryIds is not null)
             {
-                ModelState.AddModelError(nameof(CreateProductVM.CategoryId), "No such category,please select");
-                return View(productVM);
+                bool categoryResult = productVM.CategoryIds.Any(x => !productVM.Categories.Exists(xx => xx.Id == x));
+                if (categoryResult)
+                {
+                    ModelState.AddModelError(nameof(CreateProductVM.CategoryIds), "Categories are wrong");
+                    return View(productVM);
+                }
             }
+
             if (productVM.TagIds is not null)
             {
                 bool tagResult = productVM.TagIds.Any(x => !productVM.Tags.Exists(xx => xx.Id == x));
@@ -136,7 +140,6 @@ namespace Allup.Areas.Admin.Controllers
             {
                 Name = productVM.Name,
                 Code = productVM.Code,
-                CategoryId = productVM.CategoryId.Value,
                 Description = productVM.Description,
                 Price = productVM.Price.Value,
                 CreatedAt = DateTime.Now,
@@ -158,6 +161,11 @@ namespace Allup.Areas.Admin.Controllers
             {
                 product.ProductSizes = productVM.SizeIds.Select(x => new ProductSize { SizeId = x }).ToList();
             }
+            if (productVM.CategoryIds is not null)
+            {
+                product.ProductCategories = productVM.CategoryIds.Select(x => new ProductCategory { CategoryId = x }).ToList();
+            }
+
             string text = string.Empty;
             if (productVM.AdditionalPhotos is not null)
             {
@@ -202,7 +210,7 @@ namespace Allup.Areas.Admin.Controllers
                 Code = product.Code,
                 Price = product.Price,
                 Description = product.Description,
-                CategoryId = product.CategoryId,
+                CategoryIds = product.ProductCategories.Select(x => x.CategoryId).ToList(),
                 Categories = _context.Categories.ToList(),
                 TagIds = product.ProductTags.Select(x => x.TagId).ToList(),
                 Tags = _context.Tags.ToList(),
@@ -279,13 +287,16 @@ namespace Allup.Areas.Admin.Controllers
             productVM.Sizes = await _context.Sizes.ToListAsync();
             productVM.Colors = await _context.Colors.ToListAsync();
             productVM.ProductImages = productFromSQL.ProductImages;
-            if (productFromSQL.CategoryId != productVM.CategoryId)
+            if (productVM.CategoryIds is not null)
             {
-                if (!productVM.Categories.Any(x => x.Id == productFromSQL.CategoryId))
+                bool categoryResult = productVM.CategoryIds.Any(x => !productVM.Categories.Any(xx => xx.Id == x));
+                if (categoryResult)
                 {
+                    ModelState.AddModelError(nameof(UpdateProductVM.CategoryIds), "Categories are incorrect");
                     return View(productVM);
                 }
             }
+
 
             if (productVM.TagIds is not null)
             {
@@ -335,8 +346,15 @@ namespace Allup.Areas.Admin.Controllers
 
 
             _context.ProductTags.RemoveRange(productFromSQL.ProductTags.Where(x => !productVM.TagIds.Exists(xr => xr == x.TagId)));
-            //List<int> addTags = productVM.TagIds.Where(x => !productFromSQL.ProductTags.Exists(xd => xd.TagId == x)).ToList();
             _context.ProductTags.AddRange(productVM.TagIds.Where(x => !productFromSQL.ProductTags.Exists(xd => xd.TagId == x)).ToList().Select(xz => new ProductTag { TagId = xz, ProductId = productFromSQL.Id }));
+            _context.ProductCategories.RemoveRange(productFromSQL.ProductCategories.Where(x => !productVM.CategoryIds.Exists(xr => xr == x.CategoryId)));
+            _context.ProductCategories.AddRange(
+                            productVM.CategoryIds
+                                .Where(x => !productFromSQL.ProductCategories.Exists(xd => xd.CategoryId == x))
+                                .ToList()
+                                .Select(xz => new ProductCategory { CategoryId = xz, ProductId = productFromSQL.Id })
+                        );
+
             if (productVM.MainPhoto is not null)
             {
                 string fileName = await productVM.MainPhoto.CreateFileAsync(_env.WebRootPath, "assets", "images", "website-images");
@@ -409,7 +427,7 @@ namespace Allup.Areas.Admin.Controllers
             }
             productFromSQL.Code = productVM.Code;
             productFromSQL.Price = productVM.Price.Value;
-            productFromSQL.CategoryId = productVM.CategoryId.Value;
+
             productFromSQL.Name = productVM.Name;
             productFromSQL.Description = productVM.Description;
             await _context.SaveChangesAsync();

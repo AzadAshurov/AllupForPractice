@@ -42,20 +42,13 @@
                         <span asp-validation-for="Price" class="text-danger"></span>
                     </div>
 
-                  
+
 
                     <div class="form-group">
-                        <label asp-for="CategoryId">Category</label>
-                        <select asp-for="CategoryId" class="form-control" asp-items="new SelectList(Model.Categories,nameof(Category.Id),nameof(Category.Name))">
-                        @* <select asp-for="CategoryId" class="form-control">
-                            @foreach (Category category in Model.Categories)
-                            {
-                                <option value="@category.Id">@category.Name</option>
-                            }
-                            <option selected disabled value="">Choose one of Categoryes</option> *@
-
+                        <label asp-for="CategoryIds">Tags</label>
+                        <select asp-for="CategoryIds" class="form-control" asp-items="new SelectList(Model.Categories,nameof(Category.Id),nameof(Category.Name))" multiple>
                         </select>
-                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        <span asp-validation-for="CategoryIds" class="text-danger"></span>
                     </div>
 
 

@@ -13,8 +13,7 @@ namespace Allup.Areas.Admin.ViewModels
         public decimal? Price { get; set; }
         public string Description { get; set; }
         public string Code { get; set; }
-        [Required(ErrorMessage = "PLEASE SELECT CATEGORY")]
-        public int? CategoryId { get; set; }
+
         public List<Category>? Categories { get; set; }
         public List<Tag>? Tags { get; set; }
         public List<int>? TagIds { get; set; }
@@ -24,5 +23,6 @@ namespace Allup.Areas.Admin.ViewModels
         public List<int>? SizeIds { get; set; }
         public List<ProductImage>? ProductImages { get; set; }
         public List<int>? ImageIds { get; set; }
+        public List<int>? CategoryIds { get; internal set; }
     }
 }

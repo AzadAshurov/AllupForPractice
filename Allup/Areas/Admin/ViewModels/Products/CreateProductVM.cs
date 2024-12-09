@@ -17,14 +17,13 @@ namespace Allup.Areas.Admin.ViewModels.Products
         public string Code { get; set; }
 
         // relation
-        [Required(ErrorMessage = "PLEASE SELECT CATEGORY")]
-        public int? CategoryId { get; set; }
-        public List<Category>? Categories { get; set; }
         public List<Tag>? Tags { get; set; }
         public List<int>? TagIds { get; set; }
         public List<Color>? Colors { get; set; }
         public List<int>? ColorIds { get; set; }
         public List<Size>? Sizes { get; set; }
         public List<int>? SizeIds { get; set; }
+        public List<Category>? Categories { get; set; }
+        public List<int>? CategoryIds { get; set; }
     }
 }

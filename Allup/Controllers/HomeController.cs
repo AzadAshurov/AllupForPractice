@@ -20,8 +20,9 @@ namespace Allup.Controllers
                 Slides = _context.Slides.OrderBy(s => s.Order).ToList(),
                 Products = _context.Products
                 .Include(p => p.ProductImages)
-                .Include(p => p.Category)
-                .ToList()
+                .ToList(),
+                Categories = _context.Categories.ToList()
+
             };
 
 
