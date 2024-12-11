@@ -3,9 +3,9 @@
 @model HomeVM
 <!--====== Slider Part Start ======-->
 
-    <section class="slider-area slider-active">
+<section class="slider-area slider-active">
 
-        @foreach (Slide slides in Model.Slides)
+    @foreach (Slide slides in Model.Slides)
     {
         <div class="single-slider">
             <div class="slider-image">
@@ -15,13 +15,13 @@
                 <div class="container-fluid custom-container">
                     <div class="slider-content">
                         <h4 data-animation="fadeInDown"
-                            data-delay="0.5s"
-                            class="sub-title">
+                        data-delay="0.5s"
+                        class="sub-title">
                             @slides.SubTitle
                         </h4>
                         <h1 data-animation="fadeInLeft"
-                            data-delay="0.5s"
-                            class="main-title">
+                        data-delay="0.5s"
+                        class="main-title">
                             <span> </span>
                             @Html.Raw(slides.MainTitle)
                         </h1>
@@ -29,9 +29,9 @@
                             @slides.Description
                         </p>
                         <a data-animation="zoomIn"
-                           data-delay="0.5s"
-                           class="main-btn"
-                           href="single-product.html">Shop Now</a>
+                        data-delay="0.5s"
+                        class="main-btn"
+                        href="single-product.html">Shop Now</a>
                     </div>
                 </div>
                 <!-- container -->
@@ -40,164 +40,71 @@
         <!-- single slider -->
     }
 
-    </section>
+</section>
 
-    <!--====== Slider Part Ends ======-->
+<!--====== Slider Part Ends ======-->
 
-    <!--====== Banner Part Start ======-->
+<!--====== Banner Part Start ======-->
 
-    <div class="banner-area banner-bg">
-      <div class="container-fluid custom-container">
+<div class="banner-area banner-bg">
+    <div class="container-fluid custom-container">
         <div class="row">
-          <div class="col-md-6">
-            <div class="banner-image">
-              <a href="shop-4-column.html"
-                ><img src="~/assets/images/banner-1.png" alt="banner"
-              /></a>
+            <div class="col-md-6">
+                <div class="banner-image">
+                    <a href="shop-4-column.html"
+                    ><img src="~/assets/images/banner-1.png" alt="banner"
+                        /></a>
+                </div>
+                <!-- banner image -->
             </div>
-            <!-- banner image -->
-          </div>
-          <div class="col-md-6">
-            <div class="banner-image">
-              <a href="shop-4-column.html"
-                ><img src="~/assets/images/banner-2.png" alt="banner"
-              /></a>
+            <div class="col-md-6">
+                <div class="banner-image">
+                    <a href="shop-4-column.html"
+                    ><img src="~/assets/images/banner-2.png" alt="banner"
+                        /></a>
+                </div>
+                <!-- banner image -->
             </div>
-            <!-- banner image -->
-          </div>
         </div>
         <!-- row -->
-      </div>
-      <!-- container -->
     </div>
+    <!-- container -->
+</div>
 
-    <!--====== Banner Part Ends ======-->
+<!--====== Banner Part Ends ======-->
 
-    <!--====== Category Part Start ======-->
+<!--====== Category Part Start ======-->
 
-    <section class="category-area category-bg pt-100 pb-100">
-      <div class="container-fluid custom-container">
+<section class="category-area category-bg pt-100 pb-100">
+    <div class="container-fluid custom-container">
         <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <div class="section-title text-center pb-30">
-              <h2 class="title">Featured Categories</h2>
+            <div class="col-lg-6">
+                <div class="section-title text-center pb-30">
+                    <h2 class="title">Featured Categories</h2>
+                </div>
             </div>
-          </div>
         </div>
         <!-- row -->
         <div class="row category-active">
-          <div class="col-lg-2">
-            <div class="single-category text-center">
+
+
+
+            @foreach (Category category in Model.Categories)
+            {
+                <div class="col-lg-2">
+                    <div class="single-category text-center">
               <a target="_blank" href="shop-left-sidebar.html">
                 <img src="~/assets/images/category-1.jpg" alt="category" />
-                <p>Laptop</p>
+                <p>@category.Name</p>
               </a>
             </div>
             <!-- single category -->
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-2.jpg" alt="category" />
-                <p>Computer</p>
-              </a>
-            </div>
             <!-- single category -->
           </div>
-          <div class="col-lg-2">
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-3.jpg" alt="category" />
-                <p>Smartphone</p>
-              </a>
-            </div>
-            <!-- single category -->
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-4.jpg" alt="category" />
-                <p>Game Consoles</p>
-              </a>
-            </div>
-            <!-- single category -->
-          </div>
-          <div class="col-lg-2">
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-5.jpg" alt="category" />
-                <p>Bottoms</p>
-              </a>
-            </div>
-            <!-- single category -->
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-6.jpg" alt="category" />
-                <p>Tops & Sets</p>
-              </a>
-            </div>
-            <!-- single category -->
-          </div>
-          <div class="col-lg-2">
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-7.jpg" alt="category" />
-                <p>Audio & Video</p>
-              </a>
-            </div>
-            <!-- single category -->
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-8.jpg" alt="category" />
-                <p>Accessories</p>
-              </a>
-            </div>
-            <!-- single category -->
-          </div>
-          <div class="col-lg-2">
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-9.jpg" alt="category" />
-                <p>Camera</p>
-              </a>
-            </div>
-            <!-- single category -->
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-10.jpg" alt="category" />
-                <p>Accessories</p>
-              </a>
-            </div>
-            <!-- single category -->
-          </div>
-          <div class="col-lg-2">
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-11.jpg" alt="category" />
-                <p>Games & Consoles</p>
-              </a>
-            </div>
-            <!-- single category -->
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-12.jpg" alt="category" />
-                <p>Video Games</p>
-              </a>
-            </div>
-            <!-- single category -->
-          </div>
-          <div class="col-lg-2">
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-1.jpg" alt="category" />
-                <p>Tops & Sets</p>
-              </a>
-            </div>
-            <!-- single category -->
-            <div class="single-category text-center">
-              <a target="_blank" href="shop-left-sidebar.html">
-                <img src="~/assets/images/category-2.jpg" alt="category" />
-                <p>Bottoms</p>
-              </a>
-            </div>
-            <!-- single category -->
-          </div>
+        }
+
+
+
         </div>
         <!-- row -->
       </div>
