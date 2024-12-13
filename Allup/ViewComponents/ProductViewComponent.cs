@@ -17,7 +17,7 @@ namespace WebApplication1.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync(SortType sortType)
         {
-            List<Product> products = null;
+            List<Product> products = new();
 
             switch (sortType)
             {

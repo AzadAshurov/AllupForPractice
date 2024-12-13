@@ -1,4 +1,5 @@
 ﻿@using Allup.Models
+@using Allup.Utilities.Enums
 @using Allup.ViewModels
 @model HomeVM
 <!--====== Slider Part Start ======-->
@@ -1343,124 +1344,8 @@
             <div class="product-items">
               <div class="row product-active">
                   <p>eeee</p>
-                <div class="col-lg-2">
-                  <div class="single-product mt-30">
-                    <div class="product-image">
-                      <a href="single-product.html">
-                        <img
-                          class="first-image"
-                          src="~/assets/images/product/product-1.jpg"
-                          alt="product"
-                        />
-                        <img
-                          class="second-image"
-                          src="~/assets/images/product/product-2.jpg"
-                          alt="product"
-                        />
-                      </a>
-                      <ul class="product-meta">
-                        <li>
-                          <a href="#"><i class="icon ion-bag"></i></a>
-                        </li>
-                        <li>
-                          <a href="#"
-                            ><i class="icon ion-android-favorite-outline"></i
-                          ></a>
-                        </li>
-                        <li>
-                          <a href="#"
-                            ><i class="icon ion-android-options"></i
-                          ></a>
-                        </li>
-                        <li>
-                          <a
-                            data-toggle="modal"
-                            data-target="#productQuickModal"
-                            href="#"
-                            ><i class="icon ion-android-open"></i
-                          ></a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="product-content">
-                      <ul class="product-rating">
-                        <li><i class="fas fa-star"></i></li>
-                        <li><i class="fas fa-star"></i></li>
-                        <li><i class="fas fa-star"></i></li>
-                        <li><i class="fas fa-star"></i></li>
-                        <li><i class="fas fa-star"></i></li>
-                      </ul>
-                      <h4 class="product-title">
-                        <a href="single-product.html"
-                          >Cale 6 eu accumsan massa facilisis Madden by Steve</a
-                        >
-                      </h4>
-                      <div class="product-price">
-                        <span class="price-sale">€11.90</span>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- single product -->
 
-            @*       <div class="single-product mt-30">
-                    <div class="product-image">
-                      <a href="single-product.html">
-                        <img
-                          class="first-image"
-                          src="~/assets/images/product/product-10.jpg"
-                          alt="product"
-                        />
-                        <img
-                          class="second-image"
-                          src="~/assets/images/product/product-11.jpg"
-                          alt="product"
-                        />
-                      </a>
-                      <ul class="product-meta">
-                        <li>
-                          <a href="#"><i class="icon ion-bag"></i></a>
-                        </li>
-                        <li>
-                          <a href="#"
-                            ><i class="icon ion-android-favorite-outline"></i
-                          ></a>
-                        </li>
-                        <li>
-                          <a href="#"
-                            ><i class="icon ion-android-options"></i
-                          ></a>
-                        </li>
-                        <li>
-                          <a
-                            data-toggle="modal"
-                            data-target="#productQuickModal"
-                            href="#"
-                            ><i class="icon ion-android-open"></i
-                          ></a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="product-content">
-                      <ul class="product-rating">
-                        <li><i class="fas fa-star"></i></li>
-                        <li><i class="fas fa-star"></i></li>
-                        <li><i class="fas fa-star"></i></li>
-                        <li><i class="fas fa-star"></i></li>
-                        <li><i class="fas fa-star"></i></li>
-                      </ul>
-                      <h4 class="product-title">
-                        <a href="single-product.html"
-                          >Winter Jacket eu accumsan massa facili originals
-                          Kaval Wind breaker</a
-                        >
-                      </h4>
-                      <div class="product-price">
-                        <span class="price-sale">€23.90</span>
-                      </div>
-                    </div>
-                  </div> *@
-                  <!-- single product -->
-                </div>
+                        @await Component.InvokeAsync("Product", SortType.Date)
                         <p>eeee</p>
               </div>
               <!-- row -->
