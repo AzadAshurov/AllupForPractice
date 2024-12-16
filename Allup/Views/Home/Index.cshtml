@@ -1333,7 +1333,7 @@
               </div>
               <!-- row -->
             </div>
-            <!-- product items -->
+           @*  <!-- product items -->
           </div>
           <div
             class="tab-pane fade"
@@ -1343,14 +1343,14 @@
           >
             <div class="product-items">
               <div class="row product-active">
-                  <p>eeee</p>
 
                         @await Component.InvokeAsync("Product", SortType.Date)
-                        <p>eeee</p>
+
               </div>
               <!-- row -->
             </div>
-            <!-- product items -->
+            <!-- product items --> *@
+            @await Component.InvokeAsync("Product", SortType.Date)
           </div>
         </div>
         <!-- tab content -->

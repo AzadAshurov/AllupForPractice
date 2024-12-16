@@ -4,14 +4,13 @@ using Allup.DAL;
 using Allup.Models;
 using Allup.Utilities.Enums;
 using Allup.Utilities.Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Allup.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin,Moderator")]
+    //[Authorize(Roles = "Admin,Moderator")]
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
@@ -40,7 +39,7 @@ namespace Allup.Areas.Admin.Controllers
 
             return View(productsVMs);
         }
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             CreateProductVM productVM = new CreateProductVM
