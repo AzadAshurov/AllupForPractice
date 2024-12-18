@@ -1,8 +1,10 @@
+using System.Management;
 using Allup.Areas.Admin.Models;
 using Allup.DAL;
+using Allup.Services.Implementations;
+using Allup.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Management;
 
 public class Program
 {
@@ -49,7 +51,7 @@ public class Program
             opt.Lockout.MaxFailedAccessAttempts = 4;
             opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(100);
         }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
-
+        builder.Services.AddScoped<IBasketService, BasketService>();
 
         var app = builder.Build();
         app.UseAuthentication();
