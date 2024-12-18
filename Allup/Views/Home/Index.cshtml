@@ -89,13 +89,13 @@
 
 
 
-            @foreach (Category category in Model.Categories)
+            @foreach (Product product in Model.Products)
             {
                 <div class="col-lg-2">
                     <div class="single-category text-center">
                         <a target="_blank" href="shop-left-sidebar.html">
-                            <img src="~/assets/images/category-1.jpg" alt="category" />
-                            <p>@category.Name</p>
+                            <img src="~/assets/images/website-images/@product.ProductImages.FirstOrDefault(x=>x.IsPrimary == true)?.Image" alt="category" />
+                            <p>@product.Name</p>
                         </a>
                     </div>
                     <!-- single category -->
