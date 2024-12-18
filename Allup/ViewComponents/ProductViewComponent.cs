@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace WebApplication1.ViewComponents
+namespace Allup.ViewComponents
 {
     public class ProductViewComponent : ViewComponent
     {

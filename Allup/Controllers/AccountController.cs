@@ -4,10 +4,10 @@ using Allup.Utilities.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.ViewModels;
+using Allup.ViewModels;
 
 
-namespace WebApplication1.Controllers
+namespace Allup.Controllers
 {
     public class AccountController : Controller
     {

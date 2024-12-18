@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication1.ViewModels
+namespace Allup.ViewModels
 {
     public class RegisterVM
     {
