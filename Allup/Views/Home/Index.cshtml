@@ -75,7 +75,41 @@
 <!--====== Banner Part Ends ======-->
 
 <!--====== Category Part Start ======-->
+<section class="category-area category-bg pt-100 pb-100">
+    <div class="container-fluid custom-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="section-title text-center pb-30">
+                    <h2 class="title">Our products</h2>
+                </div>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row category-active">
 
+
+
+            @foreach (Category category in Model.Categories)
+            {
+                <div class="col-lg-2">
+                    <div class="single-category text-center">
+                        <a target="_blank" href="shop-left-sidebar.html">
+                            <img src="~/assets/images/category-1.jpg" alt="category" />
+                            <p>@category.Name</p>
+                        </a>
+                    </div>
+                    <!-- single category -->
+                    <!-- single category -->
+                </div>
+            }
+
+
+
+        </div>
+        <!-- row -->
+    </div>
+    <!-- container -->
+</section>
 <section class="category-area category-bg pt-100 pb-100">
     <div class="container-fluid custom-container">
         <div class="row justify-content-center">
