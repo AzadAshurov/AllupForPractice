@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Allup.Services.Interfaces
+@using Allup.ViewModels
+@inject IBasketService _basketService
+@{
+    List<BasketItemVM>? basketItems = await _basketService.GetBasketAsync();
+    decimal total = 0;
+}
+<!DOCTYPE html>
 <html class="no-js" lang="en">
 <!-- Mirrored from demo.hasthemes.com/allup/allup/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Sep 2020 10:46:32 GMT -->
 <head>
@@ -315,17 +322,34 @@
                                         <button><i class="icon ion-android-search"></i></button>
                                     </form>
                                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 <div class="header-cart">
                                     <div class="cart-btn">
                                         <a href="#">
                                             <i class="icon ion-bag"></i>
                                             <span class="text">Cart :</span>
-                                            <span class="total">$0.00</span>
-                                            <span class="count">0</span>
+@*                                             <span class="total">@basketItems.Count</span> *@
+                                            <span class="count">@basketItems.Count</span>
                                         </a>
                                     </div>
+
                                     <div class="mini-cart">
-                                        <ul class="cart-items">
+                                        @* <ul class="cart-items">
                                             <li>
                                                 <div class="single-cart-item d-flex">
                                                     <div class="cart-item-thumb">
@@ -368,8 +392,8 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                        </ul>
-                                        <div class="price_content">
+                                        </ul> *@
+                                      @*   <div class="price_content">
                                             <div class="cart-subtotals">
                                                 <div class="products price_inline">
                                                     <span class="label">Subtotal</span>
@@ -392,8 +416,12 @@
                                         <!-- price content -->
                                         <div class="checkout text-center">
                                             <a href="checkout.html" class="main-btn">Checkout</a>
+                                        </div> *@
+                                        <div class="offcanvas-minicart_wrapper" id="miniCart">
+                                            @Html.Partial("BasketPartialView", basketItems);
                                         </div>
                                     </div>
+
                                     <!-- mini cart -->
                                 </div>
                             </div>

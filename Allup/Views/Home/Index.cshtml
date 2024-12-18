@@ -95,6 +95,15 @@
                     <div class="single-category text-center">
                         <a target="_blank" href="shop-left-sidebar.html">
                             <img src="~/assets/images/website-images/@product.ProductImages.FirstOrDefault(x=>x.IsPrimary == true)?.Image" alt="category" />
+                            <a class="cus-add-basket" asp-action="addbasket" asp-controller="basket" asp-route-id="@product.Id"
+                               data-tippy="Add to cart"
+                               data-tippy-inertia="true"
+                               data-tippy-animation="shift-away"
+                               data-tippy-delay="50"
+                               data-tippy-arrow="true"
+                               data-tippy-theme="sharpborder">
+                                <i class="icon ion-bag"></i>
+                            </a>
                             <p>@product.Name</p>
                         </a>
                     </div>
@@ -3147,3 +3156,26 @@
     </section>
 
     <!--====== Newsletter Part Ends ======-->
+<script>
+    var addBtns = document.querySelectorAll(".cus-add-basket");
+
+    addBtns.forEach(b => {
+        b.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            var endpoint = this.getAttribute("href");
+            fetch(endpoint)
+                .then(response => response.text())
+                .then(data => {
+                    var cart = document.querySelector("#miniCart");
+                    cart.innerHTML = data;
+
+                    var basketCount = document.querySelector("#basket-count").value;
+                    var quantities = document.querySelectorAll(".cus-quantity");
+
+                    quantities.forEach(q => q.innerHTML = basketCount);
+                });
+  
+        });
+    });
+</script>
