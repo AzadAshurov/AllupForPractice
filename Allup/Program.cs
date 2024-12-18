@@ -1,10 +1,11 @@
-using System.Management;
 using Allup.Areas.Admin.Models;
 using Allup.DAL;
+using Allup.Middlewares;
 using Allup.Services.Implementations;
 using Allup.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Management;
 
 public class Program
 {
@@ -57,6 +58,7 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseStaticFiles();
+        app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
         app.MapControllerRoute(
            name: "admin",
            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
