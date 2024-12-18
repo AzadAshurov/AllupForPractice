@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.ViewModels
+﻿namespace Allup.ViewModels
 {
     public class BasketInOrderVM
     {

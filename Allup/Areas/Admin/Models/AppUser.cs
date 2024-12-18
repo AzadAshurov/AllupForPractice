@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Allup.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Allup.Areas.Admin.Models
 {
@@ -6,6 +7,6 @@ namespace Allup.Areas.Admin.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-
+        public List<BasketItem> BasketItems { get; set; }
     }
 }
