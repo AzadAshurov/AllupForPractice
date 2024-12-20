@@ -4,6 +4,7 @@
 @{
     List<BasketItemVM>? basketItems = await _basketService.GetBasketAsync();
     decimal total = 0;
+    int count = 0;
 }
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -332,7 +333,7 @@
                                             <i class="icon ion-bag"></i>
                                             <span class="text">Cart :</span>
 @*                                             <span class="total">@basketItems.Count</span> *@
-                                            <span class="count">@basketItems.Count</span>
+                                            <span class="count cus-quantity">@basketItems.Count</span>
                                         </a>
                                     </div>
 
