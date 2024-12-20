@@ -54,6 +54,8 @@ public class Program
         }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
         builder.Services.AddScoped<IBasketService, BasketService>();
 
+        builder.Services.AddHttpContextAccessor();
+
         var app = builder.Build();
         app.UseAuthentication();
         app.UseAuthorization();

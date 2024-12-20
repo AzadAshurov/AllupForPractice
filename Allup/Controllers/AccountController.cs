@@ -1,10 +1,9 @@
-﻿using Allup.Areas.Admin.Controllers;
-using Allup.Areas.Admin.Models;
+﻿using Allup.Areas.Admin.Models;
 using Allup.Utilities.Enums;
+using Allup.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Allup.ViewModels;
 
 
 namespace Allup.Controllers

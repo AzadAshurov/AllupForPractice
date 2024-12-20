@@ -1,9 +1,9 @@
-﻿using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Allup.DAL;
+﻿using Allup.DAL;
 using Allup.Services.Interfaces;
 using Allup.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace Allup.Services.Implementations
 {
@@ -22,22 +22,28 @@ namespace Allup.Services.Implementations
         }
         public async Task<List<BasketItemVM>> GetBasketAsync()
         {
+
             List<BasketItemVM> basketVM = new();
 
             if (_user.Identity.IsAuthenticated)
             {
-                basketVM = await _context.BasketItems
-                    .Where(bi => bi.AppUserId == _user.FindFirstValue(ClaimTypes.NameIdentifier))
-                    .Select(bi => new BasketItemVM
-                    {
-                        Count = bi.Count,
-                        Price = bi.Product.Price,
-                        Image = bi.Product.ProductImages.FirstOrDefault(pi => pi.IsPrimary == true).Image,
-                        Name = bi.Product.Name,
-                        SubTotal = bi.Product.Price * bi.Count,
-                        Id = bi.ProductId
-                    })
-                    .ToListAsync();
+                _http.HttpContext.Response.Cookies.Delete(".AspNetCore.Identity.Application");
+                if (_context.BasketItems.Where(bi => bi.AppUserId == _user.FindFirstValue(ClaimTypes.NameIdentifier)) is not null)
+                {
+                    basketVM = await _context.BasketItems
+                        .Where(bi => bi.AppUserId == _user.FindFirstValue(ClaimTypes.NameIdentifier))
+                        .Select(bi => new BasketItemVM
+                        {
+                            Count = bi.Count,
+                            Price = bi.Product.Price,
+                            Image = bi.Product.ProductImages.FirstOrDefault(pi => pi.IsPrimary == true).Image,
+                            Name = bi.Product.Name,
+                            SubTotal = bi.Product.Price * bi.Count,
+                            Id = bi.ProductId
+                        })
+                        .ToListAsync();
+                }
+                else basketVM = new();
             }
             else
             {
